@@ -1,17 +1,21 @@
-import { useState } from "react";
-import { Button } from "antd";
+import { Link, useRoutes } from "react-router-dom";
+import routes from "@/router";
+import { ConfigProvider } from "antd";
+import { Suspense } from "react";
 
 function App() {
-  const [count, setCount] = useState(0);
-  const [num] = useState(0);
   return (
     <>
-      <h1>Vite + {num} </h1>
-      <div className="card">
-        <Button type={"primary"}>annual</Button>
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
+      <div className={"app-main"}>
+        <Link to={"/dashboard"}>发现音乐</Link>
+        <Link to={"/main"}>我的音乐</Link>
+        <Link to={"/focus"}>关注</Link>
+        <Link to={"/download"}>下载客户端</Link>
+        <ConfigProvider>
+          <Suspense fallback={<div>...loading</div>}>
+            {useRoutes(routes)}
+          </Suspense>
+        </ConfigProvider>
       </div>
     </>
   );
