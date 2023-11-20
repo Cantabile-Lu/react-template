@@ -6,6 +6,7 @@ import "@/styles/index.less";
 
 import { Provider } from "react-redux";
 import store from "@/store";
+import "@/utils/request/index.ts";
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
