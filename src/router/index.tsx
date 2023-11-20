@@ -64,7 +64,7 @@ const routes: RouteObject[] = [
   },
   {
     path: "/download",
-    element: <Download />
+    element: <Download age={12} name={"张三"} />
   },
   {
     path: "/about",
