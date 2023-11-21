@@ -3,19 +3,22 @@ import Request from "./request/index.ts";
 const server = new Request({
   timeout: 10 * 1000,
   transform: {
-    requestInterceptors: (config) => {
+    // instance  interceptor
+    requestInterceptor: (config) => {
+      console.log(`🚀🚀🚀🚀🚀-> in index.ts on 7`, "instance");
       return config;
     },
-    requestInterceptorsCatch: (err) => {
+    requestInterceptorCatch: (err) => {
       return err;
     },
 
-    responseInterceptors: (config) => {
+    responseInterceptor: (config) => {
       return config;
     },
-    responseInterceptorsCatch: (err) => {
+    responseInterceptorCatch: (err) => {
       return err;
     }
   }
 });
+
 export { server };

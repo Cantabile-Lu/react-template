@@ -6,7 +6,17 @@ import "@/styles/index.less";
 
 import { Provider } from "react-redux";
 import store from "@/store";
-import "@/utils/request/index.ts";
+import { server } from "@/utils";
+server.request({
+  url: "https://httpbin.org/get",
+  method: "get",
+  transform: {
+    responseInterceptor: (config) => {
+      console.log(`🚀🚀🚀🚀🚀-> in main.tsx on 15`);
+      return config;
+    }
+  }
+});
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>

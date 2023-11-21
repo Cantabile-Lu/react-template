@@ -1,16 +1,16 @@
-import type { AxiosRequestConfig, AxiosResponse } from "axios";
+import type { AxiosResponse } from "axios";
+import { InternalAxiosRequestConfig } from "axios";
 
-export abstract class AxiosTransform {
+export interface AxiosTransform {
   // 请求
-  requestInterceptors?: (config: AxiosRequestConfig) => AxiosRequestConfig;
-  requestInterceptorsCatch?: (error: Error) => void;
+  requestInterceptor?: (
+    config: InternalAxiosRequestConfig
+  ) => InternalAxiosRequestConfig;
+  requestInterceptorCatch?: (error: Error) => void;
   // 响应
-  responseInterceptors?: (res: AxiosResponse) => AxiosResponse;
-  responseInterceptorsCatch?: (
-    axiosInstance: AxiosResponse,
-    error: Error
-  ) => void;
+  responseInterceptor?: (res: AxiosResponse) => AxiosResponse;
+  responseInterceptorCatch?: (error: Error) => void;
 }
-export interface CreateAxiosOptions extends AxiosRequestConfig {
+export interface CreateAxiosOptions extends InternalAxiosRequestConfig {
   transform?: AxiosTransform;
 }

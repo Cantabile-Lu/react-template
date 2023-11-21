@@ -1,5 +1,9 @@
 import axios from "axios";
-import type { AxiosInstance, AxiosRequestConfig } from "axios";
+import type {
+  AxiosInstance,
+  AxiosResponse,
+  InternalAxiosRequestConfig
+} from "axios";
 import { CreateAxiosOptions } from "./type.ts";
 
 class Request {
@@ -16,37 +20,61 @@ class Request {
     const { transform } = this.options;
     return transform;
   }
+
+  // global interceptor
   private setupInterceptors() {
-    // TODO 拆分为函数
     const transform = this.getTransform();
     if (!transform) {
       return;
     }
     const {
-      requestInterceptors,
-      requestInterceptorsCatch,
-      responseInterceptors,
-      responseInterceptorsCatch
+      requestInterceptor,
+      requestInterceptorCatch,
+      responseInterceptor,
+      responseInterceptorCatch
     } = transform;
-
     this.axiosInstance.interceptors.request.use(
-      (config: AxiosRequestConfig) => {
-        if (requestInterceptors) {
-          config = requestInterceptors(config);
+      (config: InternalAxiosRequestConfig) => {
+        if (requestInterceptor) {
+          console.log(`🚀🚀🚀🚀🚀-> in index.ts on 39`, "global");
+          config = requestInterceptor(config);
         }
         return config;
       },
       undefined
     );
+    // has requestInterceptorCatch
+    requestInterceptorCatch &&
+      this.axiosInstance.interceptors.request.use(
+        undefined,
+        requestInterceptorCatch
+      );
 
-    this.axiosInstance.interceptors.response.use(
-      responseInterceptors,
-      responseInterceptorsCatch
-    );
+    this.axiosInstance.interceptors.response.use((res: AxiosResponse) => {
+      if (responseInterceptor) {
+        res = responseInterceptor(res);
+      }
+      return res;
+    }, undefined);
+
+    responseInterceptorCatch &&
+      this.axiosInstance.interceptors.response.use(undefined, (error) => {
+        responseInterceptorCatch(error);
+      });
   }
-  request(config: AxiosRequestConfig): void {
+  // single interceptor
+  request(config: CreateAxiosOptions): void {
+    const { transform } = config;
+
+    if (transform && transform.requestInterceptor) {
+      config = transform.requestInterceptor(config);
+    }
+
     this.axiosInstance.request(config).then((res) => {
-      console.log(`🚀🚀🚀🚀🚀-> in index.ts on 11`, res);
+      if (transform && transform.responseInterceptor) {
+        res = transform.responseInterceptor(res);
+      }
+      return res;
     });
   }
 }
