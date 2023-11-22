@@ -1,7 +1,9 @@
 import Request from "./request/index.ts";
+import { AxiosHeaders } from "axios";
 
 const server = new Request({
   timeout: 10 * 1000,
+  headers: {} as AxiosHeaders,
   transform: {
     // instance  interceptor
     requestInterceptor: (config) => {

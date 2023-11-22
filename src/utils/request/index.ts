@@ -1,11 +1,6 @@
 import axios from "axios";
-import type {
-  AxiosInstance,
-  AxiosResponse,
-  InternalAxiosRequestConfig
-} from "axios";
-import { CreateAxiosOptions } from "./type.ts";
-
+import type { AxiosInstance, AxiosResponse, AxiosError } from "axios";
+import { CreateAxiosOptions, Result } from "./type.ts";
 class Request {
   private axiosInstance: AxiosInstance;
   private readonly options: CreateAxiosOptions;
@@ -33,16 +28,14 @@ class Request {
       responseInterceptor,
       responseInterceptorCatch
     } = transform;
-    this.axiosInstance.interceptors.request.use(
-      (config: InternalAxiosRequestConfig) => {
-        if (requestInterceptor) {
-          console.log(`🚀🚀🚀🚀🚀-> in index.ts on 39`, "global");
-          config = requestInterceptor(config);
-        }
-        return config;
-      },
-      undefined
-    );
+    this.axiosInstance.interceptors.request.use((config) => {
+      // TODO 是否需要全局loading?
+      if (requestInterceptor) {
+        console.log(`🚀🚀🚀🚀🚀-> in index.ts on 39`, "global");
+        config = requestInterceptor(config);
+      }
+      return config;
+    }, undefined);
     // has requestInterceptorCatch
     requestInterceptorCatch &&
       this.axiosInstance.interceptors.request.use(
@@ -50,32 +43,54 @@ class Request {
         requestInterceptorCatch
       );
 
-    this.axiosInstance.interceptors.response.use((res: AxiosResponse) => {
-      if (responseInterceptor) {
-        res = responseInterceptor(res);
+    this.axiosInstance.interceptors.response.use(
+      (res: AxiosResponse) => {
+        if (responseInterceptor) {
+          res = responseInterceptor(res);
+        }
+        return res.data;
+      },
+      (error: AxiosError) => {
+        if (responseInterceptorCatch) {
+          responseInterceptorCatch(error);
+        }
       }
-      return res;
-    }, undefined);
-
-    responseInterceptorCatch &&
-      this.axiosInstance.interceptors.response.use(undefined, (error) => {
-        responseInterceptorCatch(error);
-      });
+    );
   }
   // single interceptor
-  request(config: CreateAxiosOptions): void {
-    const { transform } = config;
+  request<T = any>(config: CreateAxiosOptions): Promise<T> {
+    return new Promise((resolve, reject) => {
+      const { transform } = config;
 
-    if (transform && transform.requestInterceptor) {
-      config = transform.requestInterceptor(config);
-    }
-
-    this.axiosInstance.request(config).then((res) => {
-      if (transform && transform.responseInterceptor) {
-        res = transform.responseInterceptor(res);
+      if (transform && transform.requestInterceptor) {
+        config = transform.requestInterceptor(config);
       }
-      return res;
+
+      this.axiosInstance
+        .request<any, AxiosResponse<Result>>(config)
+        .then((res: AxiosResponse<Result>) => {
+          if (transform && transform.responseInterceptor) {
+            res = transform.responseInterceptor(res);
+          }
+          resolve(res as unknown as Promise<T>);
+        })
+        .catch((error) => {
+          reject(error);
+        });
     });
+  }
+
+  get<T>(config: CreateAxiosOptions): Promise<T> {
+    return this.request({ ...config, method: "get" });
+  }
+  post<T>(config: CreateAxiosOptions): Promise<T> {
+    return this.request({ ...config, method: "post" });
+  }
+  put<T>(config: CreateAxiosOptions): Promise<T> {
+    return this.request({ ...config, method: "put" });
+  }
+  delete<T>(config: CreateAxiosOptions): Promise<T> {
+    return this.request({ ...config, method: "delete" });
   }
 }
 export default Request;
