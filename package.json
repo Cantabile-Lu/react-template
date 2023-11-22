@@ -1,13 +1,14 @@
 {
   "name": "react-template",
   "private": true,
-  "version": "0.0.0",
+  "version": "0.0.1",
   "type": "module",
   "scripts": {
     "dev": "vite --host",
     "build": "tsc && vite build",
     "lint": "eslint . --ext ts,tsx \"{src,mock}/**/*.{ts,tsx}\" --max-warnings 0",
-    "lint:prettier": "prettier --write .eslintrc.cjs \"src/**/*.{ts,tsx,less}\""
+    "lint:prettier": "prettier --write .eslintrc.cjs \"src/**/*.{ts,tsx,less}\"",
+    "release": "commit-and-tag-version"
   },
   "dependencies": {
     "@ant-design/icons": "^5.2.6",
@@ -28,6 +29,7 @@
     "@typescript-eslint/eslint-plugin": "^6.0.0",
     "@typescript-eslint/parser": "^6.0.0",
     "@vitejs/plugin-react": "^4.0.3",
+    "commit-and-tag-version": "^12.0.0",
     "eslint": "^8.45.0",
     "eslint-config-prettier": "^9.0.0",
     "eslint-plugin-prettier": "^5.0.1",
