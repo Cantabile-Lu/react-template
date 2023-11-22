@@ -1,4 +1,28 @@
 react-template
+## [0.0.15](https://github.com/Cantabile-Lu/react-template/compare/v0.0.3...v0.0.15) (2023-11-22)
+
+## [0.0.14](https://github.com/Cantabile-Lu/react-template/compare/v0.0.3...v0.0.14) (2023-11-22)
+
+## [0.0.13](https://github.com/Cantabile-Lu/react-template/compare/v0.0.3...v0.0.13) (2023-11-22)
+
+## [0.0.12](https://github.com/Cantabile-Lu/react-template/compare/v0.0.3...v0.0.12) (2023-11-22)
+
+## [0.0.11](https://github.com/Cantabile-Lu/react-template/compare/v0.0.3...v0.0.11) (2023-11-22)
+
+## [0.0.10](https://github.com/Cantabile-Lu/react-template/compare/v0.0.3...v0.0.10) (2023-11-22)
+
+## [0.0.9](https://github.com/Cantabile-Lu/react-template/compare/v0.0.3...v0.0.9) (2023-11-22)
+
+## [0.0.8](https://github.com/Cantabile-Lu/react-template/compare/v0.0.3...v0.0.8) (2023-11-22)
+
+## [0.0.7](https://github.com/Cantabile-Lu/react-template/compare/v0.0.3...v0.0.7) (2023-11-22)
+
+## [0.0.6](https://github.com/Cantabile-Lu/react-template/compare/v0.0.3...v0.0.6) (2023-11-22)
+
+## [0.0.5](https://github.com/Cantabile-Lu/react-template/compare/v0.0.3...v0.0.5) (2023-11-22)
+
+## [0.0.4](https://github.com/Cantabile-Lu/react-template/compare/v0.0.3...v0.0.4) (2023-11-22)
+
 ## [0.0.3](https://github.com/Cantabile-Lu/react-template/compare/v0.0.2...v0.0.3) (2023-11-22)
 
 
