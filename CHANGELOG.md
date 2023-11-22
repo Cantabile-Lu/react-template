@@ -1,6 +1,10 @@
-# Changelog
+react-template
+## [0.0.3](https://github.com/Cantabile-Lu/react-template/compare/v0.0.2...v0.0.3) (2023-11-22)
 
-All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
+
+### ⭐ Features
+
+* create versionrc.cjs ([5e06a39](https://github.com/Cantabile-Lu/react-template/commit/5e06a39d1adee439d57a8262d67fdc4ddcf53373))
 
 ## [0.0.2](https://github.com/Cantabile-Lu/react-template/compare/v0.0.1...v0.0.2) (2023-11-22)
 
