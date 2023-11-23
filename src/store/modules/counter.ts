@@ -8,7 +8,7 @@ const counterSlice = createSlice({
   },
   initialState: {
     count: 0,
-    message: "Hello redux"
+    message: "Hello React"
   }
 });
 export const { changeCount } = counterSlice.actions;
