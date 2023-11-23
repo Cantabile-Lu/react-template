@@ -69,17 +69,16 @@ export default class Request {
 
   /**
    * @description 单个实列请求
-   * {
-   *   code: 200,
-   *   message: string
-   *   data: T
-   * }
    */
   request<T = any>(config: AxiosOptions): Promise<Result<T>> {
     return new Promise((resolve, reject) => {
       this.axiosInstance
         .request<any, AxiosResponse<Result>>(config)
         .then((res) => {
+          const { transform } = config;
+          if (transform && transform.responseInterceptor) {
+            res = transform.responseInterceptor(res);
+          }
           resolve(res.data);
         })
         .catch((error) => {

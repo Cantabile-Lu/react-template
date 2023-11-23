@@ -1,6 +1,9 @@
 export interface Result<T = any> {
-  code: number;
-  type: "success" | "error" | "warning";
+  Language: string;
+  Total: number;
+  LastUpdate: string;
   message: string;
-  result: T;
+  status: boolean;
+  success: boolean;
+  data: T;
 }

@@ -4,13 +4,11 @@ const server = new Request({
   transform: {
     // instance  interceptor
     requestInterceptor: (config) => {
-      console.log(`🚀🚀🚀🚀🚀-> in index.ts on 7`, "instance");
       return config;
     },
     requestInterceptorCatch: (err) => {
       return err;
     },
-
     responseInterceptor: (config) => {
       return config;
     },
