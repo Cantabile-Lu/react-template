@@ -7,16 +7,25 @@ import "@/styles/index.less";
 import { Provider } from "react-redux";
 import store from "@/store";
 import { server } from "@/utils";
-server.request({
-  url: "https://httpbin.org/get",
-  method: "get",
-  transform: {
-    responseInterceptor: (config) => {
-      console.log(`🚀🚀🚀🚀🚀-> in main.tsx on 15`);
-      return config;
+
+interface Result {
+  type: number;
+  name: string;
+}
+server
+  .request<Result>({
+    url: "https://httpbin.org/get",
+    method: "get",
+    transform: {
+      requestInterceptor: (config) => {
+        console.log(`🚀🚀🚀🚀🚀-> in main.tsx on 21`, config);
+        return config;
+      }
     }
-  }
-});
+  })
+  .then((res) => {
+    console.log(`🚀🚀🚀🚀🚀-> in main.tsx on 15`, res);
+  });
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
