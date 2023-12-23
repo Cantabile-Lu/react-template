@@ -16,7 +16,7 @@ function depsAreSame(prev:DependencyList, next: DependencyList): boolean{
  * @param deps 对应数组
  * @return  返回实列
  */
-function useCreation<T>(factory: () => T, deps: DependencyList): T {
+function index<T>(factory: () => T, deps: DependencyList): T {
     const {current} = useRef({
       deps,
       obj: undefined as undefined | T,
@@ -30,4 +30,4 @@ function useCreation<T>(factory: () => T, deps: DependencyList): T {
     return current.obj as T
 
 }
-export default  useCreation
+export default  index

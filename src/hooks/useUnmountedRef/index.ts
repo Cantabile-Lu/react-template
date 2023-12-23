@@ -4,7 +4,7 @@ import {useEffect, useRef} from "react";
  * @description : 判断组件是否卸载
  * @return {current: boolean }
  */
-const useUnmountedRef = (): {readonly current: boolean} => {
+const index = (): {readonly current: boolean} => {
     const unmountedRef = useRef(false)
 
   useEffect(() => {
@@ -15,4 +15,4 @@ const useUnmountedRef = (): {readonly current: boolean} => {
   }, []);
    return unmountedRef
 }
-export default  useUnmountedRef
+export default  index
